@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E62B028A258D30E40004F878 /* AdditionalFunctionls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E62B0288258D30E40004F878 /* AdditionalFunctionls.cpp */; };
 		E6C1351A258BBA09001EEE17 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E6C13519258BBA09001EEE17 /* main.cpp */; };
 		E6C13523258BBA37001EEE17 /* Traversal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E6C13521258BBA37001EEE17 /* Traversal.cpp */; };
 		E6C13528258BCC37001EEE17 /* SpanningTrees.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E6C13526258BCC37001EEE17 /* SpanningTrees.cpp */; };
@@ -27,6 +28,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E62B0288258D30E40004F878 /* AdditionalFunctionls.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AdditionalFunctionls.cpp; sourceTree = "<group>"; };
+		E62B0289258D30E40004F878 /* AdditionalFunctionls.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdditionalFunctionls.h; sourceTree = "<group>"; };
 		E6C13516258BBA09001EEE17 /* Graph */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Graph; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6C13519258BBA09001EEE17 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E6C13521258BBA37001EEE17 /* Traversal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Traversal.cpp; sourceTree = "<group>"; };
@@ -78,6 +81,8 @@
 				E6C1352B258BCC50001EEE17 /* ShortestPath.h */,
 				E6C1352F258BCC67001EEE17 /* TopologicalSorting.cpp */,
 				E6C13530258BCC67001EEE17 /* TopologicalSorting.h */,
+				E62B0288258D30E40004F878 /* AdditionalFunctionls.cpp */,
+				E62B0289258D30E40004F878 /* AdditionalFunctionls.h */,
 			);
 			path = Graph;
 			sourceTree = "<group>";
@@ -139,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6C13523258BBA37001EEE17 /* Traversal.cpp in Sources */,
+				E62B028A258D30E40004F878 /* AdditionalFunctionls.cpp in Sources */,
 				E6C13528258BCC37001EEE17 /* SpanningTrees.cpp in Sources */,
 				E6C1352C258BCC50001EEE17 /* ShortestPath.cpp in Sources */,
 				E6C13531258BCC67001EEE17 /* TopologicalSorting.cpp in Sources */,

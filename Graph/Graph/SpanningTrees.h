@@ -5,9 +5,13 @@
 //  Created by Le Hoang Anh on 18/12/2020.
 //
 
-#ifndef SpanningTrees_hpp
-#define SpanningTrees_hpp
+#ifndef SPANNING_TREES_H_
+#define SPANNING_TREES_H_
 
-#include <stdio.h>
+#include "AdditionalFunctionls.h"
+#include <stack>
+#include <queue>
 
-#endif /* SpanningTrees_hpp */
+vector<vector<int> > spanningTree(const vector<vector<int> > edges, int vertices);
+
+#endif

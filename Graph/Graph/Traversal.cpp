@@ -7,7 +7,7 @@
 
 #include "Traversal.h"
 
-void DFS(const vector<vector<bool>> &adj, vector<bool> &visited, int v) {
+void DFS(const vector<vector<bool> > &adj, vector<bool> &visited, int v) {
     if (v < 1 || v > adj.size() || adj.size() != visited.size())
         return;
 
@@ -21,7 +21,7 @@ void DFS(const vector<vector<bool>> &adj, vector<bool> &visited, int v) {
     }
 }
 
-void DFS(vector<list<int>> &adj, vector<bool> &visited, int v) {
+void DFS(vector<list<int> > &adj, vector<bool> &visited, int v) {
     if (v < 1 || v > adj.size() || adj.size() != visited.size())
         return;
 
@@ -51,7 +51,7 @@ void DFS(vector<list<int>> &adj, vector<bool> &visited, int v) {
     }
 }
 
-void BFS(const vector<vector<bool>> &adj, vector<bool> &visited, int v) {
+void BFS(const vector<vector<bool> > &adj, vector<bool> &visited, int v) {
     if (v < 1 || v > adj.size() || adj.size() != visited.size())
         return;
 
@@ -78,7 +78,7 @@ void BFS(const vector<vector<bool>> &adj, vector<bool> &visited, int v) {
     }
 }
 
-void BFS(const vector<list<int>> &adj, vector<bool> &visited, int v) {
+void BFS(const vector<list<int> > &adj, vector<bool> &visited, int v) {
     if (v < 1 || v > adj.size() || adj.size() != visited.size())
         return;
 
@@ -105,7 +105,7 @@ void BFS(const vector<list<int>> &adj, vector<bool> &visited, int v) {
     }
 }
 
-void traversalEntireGraph(const vector<vector<bool>> &adj, TypeTraversal type) {
+void traversalEntireGraph(const vector<vector<bool> > &adj, TypeTraversal type) {
     size_t countVertices = adj.size();
     vector<bool> visited(countVertices, false);
 
@@ -120,12 +120,12 @@ void traversalEntireGraph(const vector<vector<bool>> &adj, TypeTraversal type) {
     }
 }
 
-void traversalEntireGraph(const vector<list<int>> &adj, TypeTraversal type) {
+void traversalEntireGraph(const vector<list<int> > &adj, TypeTraversal type) {
     size_t countVertices = adj.size();
     vector<bool> visited(countVertices, false);
 
     if (type == DEPTH_FIRST_SEARCH) {
-        vector<list<int>> adjList = adj;
+        vector<list<int> > adjList = adj;
         for (int i = 1; i <= countVertices; i++)
         if (!visited[i - 1])
             DFS(adjList, visited, i);
