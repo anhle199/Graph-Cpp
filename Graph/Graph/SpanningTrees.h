@@ -14,4 +14,11 @@
 
 vector<vector<int> > spanningTree(const vector<vector<int> > edges, int vertices);
 
+vector<WeightedEdge> Prim(const vector<list<WeightedEdge> > &adj, vector<bool> &visited);
+vector<WeightedEdge> Kruskal(const vector<list<WeightedEdge> > &adj, vector<bool> &visited);
+
+//vector<WeightedEdge> minimumSpanningTree(const vector<vector<int> > &edges, const vector<int> &weights, int vertices);
+
+vector<WeightedEdge> minimumSpanningTree(const vector<WeightedEdge> & edges, int vertices);
+
 #endif
