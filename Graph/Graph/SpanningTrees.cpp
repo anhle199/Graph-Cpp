@@ -119,6 +119,11 @@ vector<WeightedEdge> Prim(const vector<list<WeightedEdge> > &adj, vector<bool> &
         }
     }
 
+    for (WeightedEdge &edge : mst) {
+        ++edge.start;
+        ++edge.end;
+    }
+
     return mst;
 }
 
