@@ -8,7 +8,7 @@
 #ifndef SPANNING_TREES_H_
 #define SPANNING_TREES_H_
 
-#include "AdditionalFunctionls.h"
+#include "AdditionalFunctions.h"
 #include <stack>
 #include <queue>
 

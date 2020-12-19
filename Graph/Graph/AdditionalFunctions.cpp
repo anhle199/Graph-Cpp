@@ -1,11 +1,11 @@
 //
-//  AdditionalFunctionls.cpp
+//  AdditionalFunctions.cpp
 //  Graph
 //
 //  Created by Le Hoang Anh on 19/12/2020.
 //
 
-#include "AdditionalFunctionls.h"
+#include "AdditionalFunctions.h"
 
 void printGraph(const vector<vector<int> > &edges) {
     if (!edges.empty()) {

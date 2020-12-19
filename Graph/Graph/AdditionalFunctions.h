@@ -1,5 +1,5 @@
 //
-//  AdditionalFunctionls.h
+//  AdditionalFunctions.h
 //  Graph
 //
 //  Created by Le Hoang Anh on 19/12/2020.
