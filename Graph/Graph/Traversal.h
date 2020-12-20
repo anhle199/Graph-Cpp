@@ -19,7 +19,7 @@ using namespace std;
 enum TypeTraversal { DEPTH_FIRST_SEARCH, BREADTH_FIRST_SEARCH };
 
 void DFS(const vector<vector<bool> > &adj, vector<bool> &visited, int v);
-void DFS(vector<list<int> > &adj, vector<bool> &visited, int v);
+void DFS(const vector<list<int> > &adj, vector<bool> &visited, int v);
 void BFS(const vector<vector<bool> > &adj, vector<bool> &visited, int v);
 void BFS(const vector<list<int> > &adj, vector<bool> &visited, int v);
 void traversalEntireGraph(const vector<vector<bool> > &adj, TypeTraversal type);

@@ -21,7 +21,7 @@ void DFS(const vector<vector<bool> > &adj, vector<bool> &visited, int v) {
     }
 }
 
-void DFS(vector<list<int> > &adj, vector<bool> &visited, int v) {
+void DFS(const vector<list<int> > &adj, vector<bool> &visited, int v) {
     if (v < 1 || v > adj.size() || adj.size() != visited.size())
         return;
 
@@ -34,16 +34,17 @@ void DFS(vector<list<int> > &adj, vector<bool> &visited, int v) {
     while (!st.empty()) {
         int u = st.top();
 
-        while (!adj[u].empty()) {
-            int k = adj[u].front();
-            adj[u].pop_front();
-            
-            if (!visited[k]) {
-                cout << k + 1 << "  ";
-                visited[k] = true;
-                st.push(k);
-
-                u = k;
+        list<int>::const_iterator it = adj[u].begin();
+        while (it != adj[u].end()) {
+            if (visited[*it])
+                ++it;
+            else {
+                cout << *it + 1 << "  ";
+                visited[*it] = true;
+                st.push(*it);
+                
+                u = *it;
+                it = adj[u].begin();
             }
         }
 
@@ -127,8 +128,8 @@ void traversalEntireGraph(const vector<list<int> > &adj, TypeTraversal type) {
     if (type == DEPTH_FIRST_SEARCH) {
         vector<list<int> > adjList = adj;
         for (int i = 1; i <= countVertices; i++)
-        if (!visited[i - 1])
-            DFS(adjList, visited, i);
+            if (!visited[i - 1])
+                DFS(adjList, visited, i);
     } else {
         for (int i = 1; i <= countVertices; i++)
         if (!visited[i - 1])

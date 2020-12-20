@@ -70,22 +70,22 @@ int main() {
 //    printGraph(tree);
 //    cout << endl;
 
-    vector<WeightedEdge> edges = {
-        {1, 2, 15}, {1, 5, 9}, {1, 6, 12},
-        {2, 3, 8}, {2, 4, 7}, {2, 5, 6},
-        {3, 4, 8}, {3, 7, 11},
-        {4, 5, 16}, {4, 7, 9},
-        {5, 6, 2}, {5, 7, 14},
-        {6, 7, 13}
-    };
-    int vertices = 7;
-
-    vector<WeightedEdge> mst = minimumSpanningTree(edges, vertices);
-    for (WeightedEdge &edge : mst) {
-        ++edge.start;
-        ++edge.end;
-    }
-    printGraph(mst);
+//    vector<WeightedEdge> edges = {
+//        {1, 2, 15}, {1, 5, 9}, {1, 6, 12},
+//        {2, 3, 8}, {2, 4, 7}, {2, 5, 6},
+//        {3, 4, 8}, {3, 7, 11},
+//        {4, 5, 16}, {4, 7, 9},
+//        {5, 6, 2}, {5, 7, 14},
+//        {6, 7, 13}
+//    };
+//    int vertices = 7;
+//
+//    vector<WeightedEdge> mst = minimumSpanningTree(edges, vertices);
+//    for (WeightedEdge &edge : mst) {
+//        ++edge.start;
+//        ++edge.end;
+//    }
+//    printGraph(mst);
 
     return 0;
 }
