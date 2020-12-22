@@ -32,10 +32,15 @@ void BFS(const vector<list<int> > &adj, vector<bool> &visited, int v, vector<vec
     }
 }
 
-vector<vector<int> > spanningTree(const vector<vector<int> > edges, int vertices) {
+vector<vector<int> > spanningTree(const vector<vector<int> > edges, int vertices, bool directed) {
     vector<vector<int> > tree;
     vector<bool> visited(vertices, false);
-    vector<list<int> > adj = adjacencyList(edges, vertices);
+    vector<list<int> > adj;
+
+    if (directed)
+        adj = DirectedGraph::adjacencyList(edges, vertices);
+    else
+        adj = UndirectedGraph::adjacencyList(edges, vertices);
 
     for (int i = 1; i < vertices; i++)
     if (!visited[i - 1])
@@ -127,13 +132,14 @@ vector<WeightedEdge> Prim(const vector<list<WeightedEdge> > &adj, vector<bool> &
     return mst;
 }
 
-//vector<WeightedEdge> Kruskal(const vector<list<WeightedEdge> > &adj, vector<bool> &visited) {
-//
-//}
-
-vector<WeightedEdge> minimumSpanningTree(const vector<WeightedEdge> & edges, int vertices) {
-    vector<list<WeightedEdge> > adj = adjacencyList(edges, vertices);
+vector<WeightedEdge> minimumSpanningTree(const vector<WeightedEdge> & edges, int vertices, bool directed) {
+    vector<list<WeightedEdge> > adj;
     vector<bool> visited(vertices, false);
+
+    if (directed)
+        adj = DirectedGraph::adjacencyList(edges, vertices);
+    else
+        adj = UndirectedGraph::adjacencyList(edges, vertices);
 
     return Prim(adj, visited);
 }

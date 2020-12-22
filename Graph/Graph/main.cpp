@@ -46,8 +46,8 @@ int main() {
 //    printGraph(edges);
 //    cout << endl;
 
-//    vector<vector<bool> > adjMatrix = adjacencyMatrix(edges, 12);
-//    vector<list<int> > adjList = adjacencyList(edges, 12);
+//    vector<vector<bool> > adjMatrix = UndirectedGraph::adjacencyMatrix(edges, 12);
+//    vector<list<int> > adjList = UndirectedGraph::adjacencyList(edges, 12);
 
 //    cout << "DFS: ";
 //    traversalEntireGraph(adjMatrix, DEPTH_FIRST_SEARCH);
