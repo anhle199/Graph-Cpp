@@ -25,7 +25,7 @@ int main() {
 //    };
 //    int vertices = 12;
 
-//    vector<vector<int> > edges = {
+    vector<vector<int> > edges = {
 //        {1, 2}, {1, 8},
 //        {2, 3}, {2, 4}, {2, 8}, {2, 10},
 //        {3, 4},
@@ -37,7 +37,7 @@ int main() {
 //        {9, 10}, {9, 12},
 //        {10, 11},
 //        {11, 12}
-//    };
+    };
 //    int vertices = 12;
 //
 //    cout << "The number of vertices: " << vertices << endl;
@@ -52,7 +52,7 @@ int main() {
 //    cout << "DFS: ";
 //    traversalEntireGraph(adjMatrix, DEPTH_FIRST_SEARCH);
 //    cout << endl;
-//
+
 //    cout << "DFS: ";
 //    traversalEntireGraph(adjList, DEPTH_FIRST_SEARCH);
 //    cout << endl;

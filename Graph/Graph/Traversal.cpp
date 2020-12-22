@@ -8,7 +8,7 @@
 #include "Traversal.h"
 
 void DFS(const vector<vector<bool> > &adj, vector<bool> &visited, int v) {
-    if (v < 1 || v > adj.size() || adj.size() != visited.size())
+    if (adj.size() != visited.size())
         return;
 
     if (!visited[v - 1]) {
@@ -22,38 +22,30 @@ void DFS(const vector<vector<bool> > &adj, vector<bool> &visited, int v) {
 }
 
 void DFS(const vector<list<int> > &adj, vector<bool> &visited, int v) {
-    if (v < 1 || v > adj.size() || adj.size() != visited.size())
+    if (adj.size() != visited.size())
         return;
 
-    stack<int> st;
+    stack<int> s;
 
-    st.push(v - 1);
     visited[v - 1] = true;
-    cout << v << "  ";
+    s.push(v - 1);
 
-    while (!st.empty()) {
-        int u = st.top();
+    while (!s.empty()) {
+        int u = s.top();
+        cout << u + 1 << "  ";
 
-        list<int>::const_iterator it = adj[u].begin();
-        while (it != adj[u].end()) {
-            if (visited[*it])
-                ++it;
-            else {
-                cout << *it + 1 << "  ";
+        for (auto it = adj[u].begin(); it != adj[u].end(); it++)
+            if (!visited[*it]) {
                 visited[*it] = true;
-                st.push(*it);
-                
-                u = *it;
-                it = adj[u].begin();
+                s.push(*it);
             }
-        }
 
-        st.pop();
+        s.pop();
     }
 }
 
 void BFS(const vector<vector<bool> > &adj, vector<bool> &visited, int v) {
-    if (v < 1 || v > adj.size() || adj.size() != visited.size())
+    if (adj.size() != visited.size())
         return;
 
     size_t countVertices = adj.size();
@@ -80,7 +72,7 @@ void BFS(const vector<vector<bool> > &adj, vector<bool> &visited, int v) {
 }
 
 void BFS(const vector<list<int> > &adj, vector<bool> &visited, int v) {
-    if (v < 1 || v > adj.size() || adj.size() != visited.size())
+    if (adj.size() != visited.size())
         return;
 
     queue<int> q;
