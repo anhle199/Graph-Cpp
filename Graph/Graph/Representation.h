@@ -19,6 +19,9 @@ struct WeightedEdge {
     int weight;
 };
 
+#define DIRECTED    true
+#define UNDIRECTED  false
+
 class DirectedGraph {
 private:
     DirectedGraph() {};

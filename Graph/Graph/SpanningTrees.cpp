@@ -32,17 +32,17 @@ void BFS(const vector<list<int> > &adj, vector<bool> &visited, int v, vector<vec
     }
 }
 
-vector<vector<int> > spanningTree(const vector<vector<int> > edges, int vertices, bool directed) {
+vector<vector<int> > spanningTree(const vector<vector<int> > edges, int countVertices, bool directed) {
     vector<vector<int> > tree;
-    vector<bool> visited(vertices, false);
+    vector<bool> visited(countVertices, false);
     vector<list<int> > adj;
 
     if (directed)
-        adj = DirectedGraph::adjacencyList(edges, vertices);
+        adj = DirectedGraph::adjacencyList(edges, countVertices);
     else
-        adj = UndirectedGraph::adjacencyList(edges, vertices);
+        adj = UndirectedGraph::adjacencyList(edges, countVertices);
 
-    for (int i = 1; i < vertices; i++)
+    for (int i = 1; i < countVertices; i++)
     if (!visited[i - 1])
         BFS(adj, visited, i, tree);
 
@@ -80,10 +80,12 @@ list<WeightedEdge>::const_iterator min(const list<WeightedEdge>::const_iterator 
     return (edge2->weight <= edge3->weight) ? edge2 : edge3;
 }
 
-vector<WeightedEdge> Prim(const vector<list<WeightedEdge> > &adj, vector<bool> &visited) {
+vector<WeightedEdge> Prim(const vector<list<WeightedEdge> > &adj) {
     vector<WeightedEdge> mst;
 
     if (!adj.empty()) {
+        vector<bool> visited(adj.size(), false);
+
         int i = 0;
         while (adj[i].empty())
             ++i;
@@ -122,24 +124,73 @@ vector<WeightedEdge> Prim(const vector<list<WeightedEdge> > &adj, vector<bool> &
             mst.push_back(*minEdge);
             visited[minEdge->start] = visited[minEdge->end] = true;
         }
-    }
 
-    for (WeightedEdge &edge : mst) {
-        ++edge.start;
-        ++edge.end;
+        for (WeightedEdge &edge : mst) {
+            ++edge.start;
+            ++edge.end;
+        }
     }
 
     return mst;
 }
 
-vector<WeightedEdge> minimumSpanningTree(const vector<WeightedEdge> & edges, int vertices, bool directed) {
-    vector<list<WeightedEdge> > adj;
-    vector<bool> visited(vertices, false);
+void quickSort(vector<WeightedEdge> &edges, int left, int right) {
+    int i = left;
+    int j = right;
+    WeightedEdge pivot = edges[(left + right) / 2];
 
-    if (directed)
-        adj = DirectedGraph::adjacencyList(edges, vertices);
-    else
-        adj = UndirectedGraph::adjacencyList(edges, vertices);
+    do {
+        while (edges[i].weight < pivot.weight) ++i;
+        while (edges[j].weight > pivot.weight) --j;
 
-    return Prim(adj, visited);
+        if (i <= j) {
+            swap(edges[i], edges[j]);
+            ++i;
+            --j;
+        }
+    } while (i <= j);
+
+    if (left < j)
+        quickSort(edges, left, j);
+    if (i < right)
+        quickSort(edges, i, right);
+}
+
+vector<WeightedEdge> Kruskal(vector<WeightedEdge> edges, int countVertices) {
+    vector<WeightedEdge> mst;
+
+    if (!edges.empty() && countVertices > 0) {
+        vector<bool> visited(countVertices, false);
+
+        quickSort(edges, 0, edges.size() - 1);
+        for (const WeightedEdge &edge : edges) {
+            if (mst.size() >= countVertices - 1)
+                break;
+
+            if (!visited[edge.start - 1] || !visited[edge.end - 1]) {
+                visited[edge.start - 1] = visited[edge.end - 1] = true;
+                mst.push_back(edge);
+            }
+        }
+    }
+
+    return mst;
+}
+
+vector<WeightedEdge> minimumSpanningTree(const vector<WeightedEdge> &edges, int countVertices, bool directed,
+                                         AlgorithmFindMST algorithmName) {
+    if (algorithmName == KRUSKAL)
+        return Kruskal(edges, countVertices);
+    else if (algorithmName == PRIM) {
+        vector<list<WeightedEdge> > adj;
+
+        if (directed)
+            adj = DirectedGraph::adjacencyList(edges, countVertices);
+        else
+            adj = UndirectedGraph::adjacencyList(edges, countVertices);
+
+        return Prim(adj);
+    }
+
+    return vector<WeightedEdge>(); // ignore line.
 }

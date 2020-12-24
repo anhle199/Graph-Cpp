@@ -12,10 +12,13 @@
 #include <stack>
 #include <queue>
 
-vector<vector<int> > spanningTree(const vector<vector<int> > edges, int vertices, bool directed);
+enum AlgorithmFindMST {PRIM, KRUSKAL};
 
-vector<WeightedEdge> Prim(const vector<list<WeightedEdge> > &adj, vector<bool> &visited);
-vector<WeightedEdge> Kruskal(const vector<list<WeightedEdge> > &adj, vector<bool> &visited);
-vector<WeightedEdge> minimumSpanningTree(const vector<WeightedEdge> & edges, int vertices, bool directed);
+vector<vector<int> > spanningTree(const vector<vector<int> > edges, int countVertices, bool directed);
+
+vector<WeightedEdge> Prim(const vector<list<WeightedEdge> > &adj);
+vector<WeightedEdge> Kruskal(vector<WeightedEdge> edges, int countVertices);
+vector<WeightedEdge> minimumSpanningTree(const vector<WeightedEdge> & edges, int countVertices, bool directed,
+                                         AlgorithmFindMST algorithmName);
 
 #endif

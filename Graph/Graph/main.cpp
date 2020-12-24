@@ -23,7 +23,7 @@ int main() {
 //        {10, 11},
 //        {11, 12}
 //    };
-//    int vertices = 12;
+//    int countVertices = 12;
 
 //    vector<vector<int> > edges = {
 //        {1, 2}, {1, 8},
@@ -38,9 +38,9 @@ int main() {
 //        {10, 11},
 //        {11, 12}
 //    };
-//    int vertices = 12;
+//    int countVertices = 12;
 //
-//    cout << "The number of vertices: " << vertices << endl;
+//    cout << "The number of countVertices: " << countVertices << endl;
 //    cout << "The number of edges: " << edges.size() << endl;
 //    cout << "The set of edges: ";
 //    printGraph(edges);
@@ -65,27 +65,26 @@ int main() {
 //    traversalEntireGraph(adjList, BREADTH_FIRST_SEARCH);
 //    cout << endl;
 
-//    vector<vector<int> > tree = spanningTree(edges, vertices);
+//    vector<vector<int> > tree = spanningTree(edges, countVertices);
 //    cout << "\nSpanning tree: ";
 //    printGraph(tree);
 //    cout << endl;
 
-//    vector<WeightedEdge> edges = {
-//        {1, 2, 15}, {1, 5, 9}, {1, 6, 12},
-//        {2, 3, 8}, {2, 4, 7}, {2, 5, 6},
-//        {3, 4, 8}, {3, 7, 11},
-//        {4, 5, 16}, {4, 7, 9},
-//        {5, 6, 2}, {5, 7, 14},
-//        {6, 7, 13}
-//    };
-//    int vertices = 7;
-//
-//    vector<WeightedEdge> mst = minimumSpanningTree(edges, vertices);
-//    for (WeightedEdge &edge : mst) {
-//        ++edge.start;
-//        ++edge.end;
-//    }
+    vector<WeightedEdge> edges = {
+        {1, 2, 15}, {1, 5, 9}, {1, 6, 12},
+        {2, 3, 8}, {2, 4, 7}, {2, 5, 6},
+        {3, 4, 8}, {3, 7, 11},
+        {4, 5, 16}, {4, 7, 9},
+        {5, 6, 2}, {5, 7, 14},
+        {6, 7, 13}
+    };
+    int countVertices = 7;
+
+//    vector<WeightedEdge> mst = minimumSpanningTree(edges, countVertices, UNDIRECTED, PRIM);
 //    printGraph(mst);
+
+    vector<WeightedEdge> mst = minimumSpanningTree(edges, countVertices, UNDIRECTED, KRUSKAL);
+    printGraph(mst);
 
     return 0;
 }
