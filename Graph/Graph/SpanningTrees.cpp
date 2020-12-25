@@ -162,7 +162,7 @@ vector<WeightedEdge> Kruskal(vector<WeightedEdge> edges, int countVertices) {
     if (!edges.empty() && countVertices > 0) {
         vector<bool> visited(countVertices, false);
 
-        quickSort(edges, 0, edges.size() - 1);
+        quickSort(edges, 0, (int)edges.size() - 1);
         for (const WeightedEdge &edge : edges) {
             if (mst.size() >= countVertices - 1)
                 break;
@@ -178,7 +178,7 @@ vector<WeightedEdge> Kruskal(vector<WeightedEdge> edges, int countVertices) {
 }
 
 vector<WeightedEdge> minimumSpanningTree(const vector<WeightedEdge> &edges, int countVertices, bool directed,
-                                         AlgorithmFindMST algorithmName) {
+                                         Algorithms algorithmName) {
     if (algorithmName == KRUSKAL)
         return Kruskal(edges, countVertices);
     else if (algorithmName == PRIM) {

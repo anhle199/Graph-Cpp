@@ -13,6 +13,8 @@
 
 using namespace std;
 
+enum Algorithms { DEPTH_FIRST_SEARCH, BREADTH_FIRST_SEARCH, PRIM, KRUSKAL, DIJKSTRA, FORD_BELLMAN };
+
 struct WeightedEdge {
     int start;
     int end;
