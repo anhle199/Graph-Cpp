@@ -140,14 +140,13 @@ int main() {
         else if (path[i].end == 'u')
             path[i].end += 5;
     }
-    cout << "E = {";
+    cout << "Dijkstra: E = {";
     for (int i = 0; i < path.size() - 1; i++) {
         cout << (char)path[i].start << (char)path[i].end << ", ";
     }
     cout << (char)path[path.size() - 1].start << (char)path[path.size() - 1].end << "}" << endl;
 
-
-    path = shortestPath(edges, countVertices, UNDIRECTED, 1, FORD_BELLMAN);
+    path = shortestPath(edges, countVertices, UNDIRECTED, 1, FORD_BELLMAN); // 1 is 'a'
     for (int i = 0; i < path.size(); i++) {
         path[i].start += 'a' - 1;
         path[i].end += 'a' - 1;
@@ -157,11 +156,27 @@ int main() {
         else if (path[i].end == 'u')
             path[i].end += 5;
     }
-    cout << "E = {";
+    cout << "Ford-Bellman: E = {";
     for (int i = 0; i < path.size() - 1; i++) {
         cout << (char)path[i].start << (char)path[i].end << ", ";
     }
     cout << (char)path[path.size() - 1].start << (char)path[path.size() - 1].end << "}" << endl;
+
+//    vector<WeightedEdge> edges = {
+//        {1, 2, 7}, {1, 4, 8},
+//        {2, 3, 4}, {2, 5, 2}, {2, 6, 1},
+//        {4, 2, 2}, {4, 5, 2},
+//        {5, 6, 3},
+//        {6, 3, 2}, {6, 4, -2}
+//    };
+//    int countVertices = 6;
+//
+//    vector<WeightedEdge> path = shortestPath(edges, countVertices, DIRECTED, 1, FORD_BELLMAN);
+//    cout << "E = {";
+//    for (int i = 0; i < path.size() - 1; i++) {
+//        cout << path[i].start << path[i].end << ", ";
+//    }
+//    cout << path[path.size() - 1].start << path[path.size() - 1].end << "}" << endl;
 
     return 0;
 }

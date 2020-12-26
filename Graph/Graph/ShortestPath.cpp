@@ -6,6 +6,8 @@
 //
 
 #include "ShortestPath.h"
+#include <queue>
+#include <iostream>
 
 Label::Label() {
     parent = -1;
@@ -61,10 +63,9 @@ vector<WeightedEdge> Dijkstra(const vector<list<WeightedEdge> > &adj, int v) {
             table[i] = table[i - 1];
 
             for (auto it = adj[u].begin(); it != adj[u].end(); it++) {
-                int x = (u == it->start) ? it->end : it->start;
-
-                if (!visited[x] && (table[i][u].weight + it->weight < table[i][x].weight)) {
-                    table[i][x].weight = table[i][u].weight + it->weight;
+                int x = it->end;
+                if (!visited[x] && (table[i - 1][u].weight + it->weight < table[i][x].weight)) {
+                    table[i][x].weight = table[i - 1][u].weight + it->weight;
                     table[i][x].parent = u;
                 }
             }
@@ -86,7 +87,7 @@ vector<WeightedEdge> Dijkstra(const vector<list<WeightedEdge> > &adj, int v) {
             WeightedEdge edge;
             edge.start = labels[i].parent + 1;
             edge.end = i + 1;
-            edge.weight = findWeight(adj[edge.start], edge.end);
+            edge.weight = findWeight(adj[labels[i].parent], i);
 
             result.push_back(edge);
         }
@@ -95,62 +96,50 @@ vector<WeightedEdge> Dijkstra(const vector<list<WeightedEdge> > &adj, int v) {
     return result;
 }
 
-bool isStable(const vector<vector<Label> > &table, const vector<bool> &visited) {
-    size_t last = table.size() - 1;
-    Label none = Label();
-
-    for (int i = 0; i < table[last].size(); i++)
-        if ((!visited[i] && table[last][i] != none) || (table[last][i] != table[last - 1][i]))
-            return false;
-
-    return true;
-}
-
 vector<WeightedEdge> FordBellman(const vector<list<WeightedEdge> > &adj, int v) {
     size_t countVertices = adj.size();
     vector<WeightedEdge> result;
 
     if (countVertices > 0) {
-        vector<bool> visited(countVertices, false);
-        vector<vector<Label> > table;
-        int u = v - 1;
+        vector<vector<Label> > table(1, vector<Label>(countVertices));
+        queue<int> q;
 
-        table.push_back(vector<Label>(countVertices));
-        table[0][u].weight = 0;
-        visited[u] = true;
+        q.push(v - 1);
+        table[0][v - 1].weight = 0;
         for (int i = 1; i < countVertices; i++) {
             table.push_back(table[i - 1]);
 
-            for (auto it = adj[u].begin(); it != adj[u].end(); it++) {
-                int x = (u == it->start) ? it->end : it->start;
+            int count = q.size();
+            while (count > 0) {
+                int u = q.front();
+                q.pop();
+                --count;
 
-                if (!visited[x] && (table[i][u].weight + it->weight < table[i][x].weight)) {
-                    table[i][x].weight = table[i][u].weight + it->weight;
-                    table[i][x].parent = u;
+                for (auto it = adj[u].begin(); it != adj[u].end(); it++) {
+                    int x = it->end;
+                    if (it->start != it->end && table[i - 1][u].weight + it->weight < table[i][x].weight) {
+                        table[i][x].weight = table[i - 1][u].weight + it->weight;
+                        table[i][x].parent = u;
+                        q.push(x);
+                    }
                 }
             }
 
-            if (isStable(table, visited))
+            if (q.empty()) // stable.
                 break;
-
-            int pos = findMin(table[i], visited);
-            if (pos == -1)
-                break;
-
-            visited[pos] = true;
-            u = pos;
         }
 
         vector<Label> labels = table.back();
         Label none = Label();
+
         for (int i = 0; i < labels.size(); i++) {
-            if (i == v - 1 || labels[i] == none)
+            if (i == v - 1 || none == labels[i])
                 continue;
 
             WeightedEdge edge;
             edge.start = labels[i].parent + 1;
             edge.end = i + 1;
-            edge.weight = findWeight(adj[edge.start], edge.end);
+            edge.weight = findWeight(adj[labels[i].parent], i);
 
             result.push_back(edge);
         }
