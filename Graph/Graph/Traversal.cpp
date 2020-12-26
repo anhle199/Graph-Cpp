@@ -36,19 +36,35 @@ void DFS(const vector<list<int> > &adj, vector<bool> &visited, int v) {
 
         list<int>::const_iterator it = adj[u].begin();
         while (it != adj[u].end()) {
-            if (visited[*it])
-                ++it;
-            else {
-                cout << *it + 1 << "  ";
-                visited[*it] = true;
-                st.push(*it);
-                
-                u = *it;
-                it = adj[u].begin();
-            }
+            if (!visited[*it])
+                break;
+
+            it++;
         }
 
-        st.pop();
+        if (it == adj[u].end())
+            st.pop();
+        else {
+            st.push(*it);
+            visited[*it] = true;
+            cout << *it + 1 << "  ";
+        }
+
+//        list<int>::const_iterator it = adj[u].begin();
+//        while (it != adj[u].end()) {
+//            if (visited[*it])
+//                ++it;
+//            else {
+//                cout << *it + 1 << "  ";
+//                visited[*it] = true;
+//                st.push(*it);
+//
+//                u = *it;
+//                it = adj[u].begin();
+//            }
+//        }
+//
+//        st.pop();
     }
 }
 
