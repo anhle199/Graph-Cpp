@@ -8,6 +8,8 @@
 #ifndef TOPOLOGICAL_SORTING_H_
 #define TOPOLOGICAL_SORTING_H_
 
+#include "Representation.h"
 
+vector<int> topologicalSorting(const vector<vector<int>> &edges, int countVertices);
 
 #endif

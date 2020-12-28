@@ -194,5 +194,26 @@ int main() {
 //        cout << path[i].start << path[i].end << ", ";
 //    cout << path.back().start << path.back().end << "}" << endl;
 
+
+//    vector<vector<int>> edges = {
+//        {0, 1},
+//        {1, 2}, {1, 5},
+//        {2, 6},
+//        {3, 5},
+//    };
+//    int countVertices = 8;
+//
+//    for (vector<int> &edge : edges) {
+//        ++edge[0];
+//        ++edge[1];
+//    }
+//
+//    vector<int> topo = topologicalSorting(edges, countVertices);
+//    // 7 4 3 0 1 5 2 6.
+//    for (const int &vertex : topo) {
+//        cout << vertex - 1 << "  ";
+//    }
+//    cout << endl;
+
     return 0;
 }
