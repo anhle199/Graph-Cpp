@@ -79,7 +79,7 @@ int main() {
 //        {6, 7, 13}
 //    };
 //    int countVertices = 7;
-
+//
 //    vector<WeightedEdge> mst = minimumSpanningTree(edges, countVertices, UNDIRECTED, PRIM);
 //    printGraph(mst);
 
@@ -145,7 +145,7 @@ int main() {
 //        cout << (char)path[i].start << (char)path[i].end << ", ";
 //    }
 //    cout << (char)path[path.size() - 1].start << (char)path[path.size() - 1].end << "}" << endl;
-//
+
 //    path = shortestPath(edges, countVertices, UNDIRECTED, 1, FORD_BELLMAN); // 1 is 'a'
 //    for (int i = 0; i < path.size(); i++) {
 //        path[i].start += 'a' - 1;
@@ -177,6 +177,22 @@ int main() {
 //        cout << path[i].start << path[i].end << ", ";
 //    }
 //    cout << path[path.size() - 1].start << path[path.size() - 1].end << "}" << endl;
+
+//    vector<WeightedEdge> edges = {
+//        {1, 2, 4}, {1, 3, 1},
+//        {2, 3, 2}, {2, 4, 7}, {2, 7, 3},
+//        {3, 8, 3},
+//        {4, 5, 1}, {4, 7, 3},
+//        {5, 6, 3}, {5, 7, 1},
+//        {6, 8, 5},
+//        {7, 8, 4}
+//    };
+//    int countVertices = 8;
+//    vector<WeightedEdge> path = shortestPath(edges, countVertices, UNDIRECTED, 1, DIJKSTRA);
+//    cout << "Dijkstra: E = {";
+//    for (int i = 0; i < path.size() - 1; i++)
+//        cout << path[i].start << path[i].end << ", ";
+//    cout << path.back().start << path.back().end << "}" << endl;
 
     return 0;
 }

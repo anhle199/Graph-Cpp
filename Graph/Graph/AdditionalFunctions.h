@@ -15,4 +15,6 @@ void printGraph(const vector<vector<int> > &edges);
 
 void printGraph(const vector<WeightedEdge> &edges);
 
+WeightedEdge findEdgeHasSmallestWeight(const vector<int> &length, const vector<int> &parent, const vector<bool> &visited);
+
 #endif

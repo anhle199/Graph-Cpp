@@ -20,7 +20,8 @@ struct Label {
 bool operator!= (const Label &l1, const Label &l2);
 bool operator== (const Label &l1, const Label &l2);
 
-vector<WeightedEdge> Dijkstra(const vector<list<WeightedEdge> > &adj, int v);
+//vector<WeightedEdge> Dijkstra(const vector<list<WeightedEdge> > &adj, int v);
+vector<WeightedEdge> Dijkstra(const vector<vector<int> > &adj, int v);
 vector<WeightedEdge> FordBellman(const vector<list<WeightedEdge> > &adj, int v);
 
 vector<WeightedEdge> shortestPath(const vector<WeightedEdge> &edges, int countVertices, bool directed, int v,
