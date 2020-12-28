@@ -80,55 +80,97 @@ list<WeightedEdge>::const_iterator min(const list<WeightedEdge>::const_iterator 
     return (edge2->weight <= edge3->weight) ? edge2 : edge3;
 }
 
-vector<WeightedEdge> Prim(const vector<list<WeightedEdge> > &adj) {
+//vector<WeightedEdge> Prim(const vector<list<WeightedEdge> > &adj) {
+//    vector<WeightedEdge> mst;
+//
+//    if (!adj.empty()) {
+//        vector<bool> visited(adj.size(), false);
+//
+//        int i = 0;
+//        while (adj[i].empty())
+//            ++i;
+//
+//        auto edge = findMinWeight(adj[i], visited);
+//        mst.push_back(*edge);
+//        visited[edge->start] = visited[edge->end] = true;
+//
+//        while (mst.size() < adj.size() - 1) {
+//            list<WeightedEdge>::const_iterator minEdge;
+//
+//            for (const WeightedEdge &edge : mst) {
+//                auto it = findMinWeight(adj[edge.start], visited);
+//                if (it != adj[edge.start].end()) {
+//                    minEdge = it;
+//                    break;
+//                }
+//
+//                it = findMinWeight(adj[edge.end], visited);
+//                if (it != adj[edge.end].end()) {
+//                    minEdge = it;
+//                    break;
+//                }
+//            }
+//
+//            for (const WeightedEdge &edge : mst) {
+//                auto it = findMinWeight(adj[edge.start], visited);
+//                if (it != adj[edge.start].end() && it->weight < minEdge->weight)
+//                    minEdge = it;
+//
+//                it = findMinWeight(adj[edge.end], visited);
+//                if (it != adj[edge.end].end() && it->weight < minEdge->weight)
+//                    minEdge = it;
+//            }
+//
+//            mst.push_back(*minEdge);
+//            visited[minEdge->start] = visited[minEdge->end] = true;
+//        }
+//
+//        for (WeightedEdge &edge : mst) {
+//            ++edge.start;
+//            ++edge.end;
+//        }
+//    }
+//
+//    return mst;
+//}
+
+vector<WeightedEdge> Prim(const vector<vector<int> > &adj, int v) {
+    size_t countVertices = adj.size();
+    vector<int> length(countVertices);
+    vector<int> parent(countVertices);
+    vector<bool> visited(countVertices, false);
+
+    --v;
+    visited[v] = true; // mark v.
+
+    for (int i = 0; i < countVertices; i++) {
+        length[i] = adj[v][i];
+        parent[i] = v;
+    }
+
     vector<WeightedEdge> mst;
 
-    if (!adj.empty()) {
-        vector<bool> visited(adj.size(), false);
+    for (int step = 1; step < countVertices; step++) { // iterate n - 1 times.
+        // find the vertex v (edge.end) has smallest weight is not in spanning tree.
+        WeightedEdge edge = findEdgeHasSmallestWeight(length, parent, visited);
 
-        int i = 0;
-        while (adj[i].empty())
-            ++i;
+        // add vertex v to the spanning tree.
+        mst.push_back(edge);
+        // mark v.
+        visited[edge.end] = true;
 
-        auto edge = findMinWeight(adj[i], visited);
-        mst.push_back(*edge);
-        visited[edge->start] = visited[edge->end] = true;
-
-        while (mst.size() < adj.size() - 1) {
-            list<WeightedEdge>::const_iterator minEdge;
-
-            for (const WeightedEdge &edge : mst) {
-                auto it = findMinWeight(adj[edge.start], visited);
-                if (it != adj[edge.start].end()) {
-                    minEdge = it;
-                    break;
-                }
-
-                it = findMinWeight(adj[edge.end], visited);
-                if (it != adj[edge.end].end()) {
-                    minEdge = it;
-                    break;
-                }
+        // update weight for each vertex (not in spanning tree) adjacent to v.
+        for (int u = 0; u < countVertices; u++) {
+            if (!visited[u] && length[u] > adj[edge.end][u]) {
+                length[u] = adj[edge.end][u];
+                parent[u] = edge.end;
             }
-
-            for (const WeightedEdge &edge : mst) {
-                auto it = findMinWeight(adj[edge.start], visited);
-                if (it != adj[edge.start].end() && it->weight < minEdge->weight)
-                    minEdge = it;
-
-                it = findMinWeight(adj[edge.end], visited);
-                if (it != adj[edge.end].end() && it->weight < minEdge->weight)
-                    minEdge = it;
-            }
-
-            mst.push_back(*minEdge);
-            visited[minEdge->start] = visited[minEdge->end] = true;
         }
+    }
 
-        for (WeightedEdge &edge : mst) {
-            ++edge.start;
-            ++edge.end;
-        }
+    for (WeightedEdge &edge : mst) {
+        ++edge.start;
+        ++edge.end;
     }
 
     return mst;
@@ -182,14 +224,14 @@ vector<WeightedEdge> minimumSpanningTree(const vector<WeightedEdge> &edges, int 
     if (algorithmName == KRUSKAL)
         return Kruskal(edges, countVertices);
     else if (algorithmName == PRIM) {
-        vector<list<WeightedEdge> > adj;
+        vector<vector<int> > adj;
 
         if (directed)
-            adj = DirectedGraph::adjacencyList(edges, countVertices);
+            adj = DirectedGraph::adjacencyWeightedMatrix(edges, countVertices);
         else
-            adj = UndirectedGraph::adjacencyList(edges, countVertices);
+            adj = UndirectedGraph::adjacencyWeightedMatrix(edges, countVertices);
 
-        return Prim(adj);
+        return Prim(adj, 1);
     }
 
     return vector<WeightedEdge>(); // ignore line.

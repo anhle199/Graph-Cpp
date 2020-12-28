@@ -6,8 +6,8 @@
 //
 
 #include "ShortestPath.h"
+#include "AdditionalFunctions.h"
 #include <queue>
-#include <iostream>
 
 Label::Label() {
     parent = -1;
@@ -22,18 +22,18 @@ bool operator== (const Label &l1, const Label &l2) {
     return l1.weight == l2.weight && l1.parent == l2.parent;
 }
 
-int findMin(const vector<Label> &labels, const vector<bool> &visited) {
-    int minWeight = INT_MAX;
-    int pos = -1;
-
-    for (int i = 0; i < labels.size(); i++)
-    if (minWeight > labels[i].weight && !visited[i]) {
-        minWeight = labels[i].weight;
-        pos = i;
-    }
-
-    return pos;
-}
+//int findMinWeightInTable(const vector<Label> &labels, const vector<bool> &visited) {
+//    int minWeight = INT_MAX;
+//    int pos = -1;
+//
+//    for (int i = 0; i < labels.size(); i++)
+//    if (minWeight > labels[i].weight && !visited[i]) {
+//        minWeight = labels[i].weight;
+//        pos = i;
+//    }
+//
+//    return pos;
+//}
 
 int findWeight(const list<WeightedEdge> &edges, int v) {
     int weight = 0;
@@ -47,53 +47,92 @@ int findWeight(const list<WeightedEdge> &edges, int v) {
     return weight;
 }
 
-vector<WeightedEdge> Dijkstra(const vector<list<WeightedEdge> > &adj, int v) {
+//vector<WeightedEdge> Dijkstra(const vector<list<WeightedEdge> > &adj, int v) {
+//    size_t countVertices = adj.size();
+//    vector<WeightedEdge> result;
+//
+//    if (countVertices > 0) {
+//        vector<Label> labels(countVertices);
+//        vector<bool> visited(countVertices, false);
+//        vector<vector<Label> > table(countVertices, vector<Label>(countVertices));
+//        int u = v - 1;
+//
+//        table[0][u].weight = 0;
+//        visited[u] = true;
+//        for (int i = 1; i < countVertices; i++) {
+//            table[i] = table[i - 1];
+//
+//            for (auto it = adj[u].begin(); it != adj[u].end(); it++) {
+//                int x = it->end;
+//                if (!visited[x] && (table[i - 1][u].weight + it->weight < table[i][x].weight)) {
+//                    table[i][x].weight = table[i - 1][u].weight + it->weight;
+//                    table[i][x].parent = u;
+//                }
+//            }
+//
+//            int pos = findMinWeightInTable(table[i], visited);
+//            if (pos == -1)
+//                break;
+//
+//            labels[pos] = table[i][pos];
+//            visited[pos] = true;
+//            u = pos;
+//        }
+//
+//        Label none = Label();
+//        for (int i = 0; i < labels.size(); i++) {
+//            if (i == v - 1 || labels[i] == none)
+//                continue;
+//
+//            WeightedEdge edge;
+//            edge.start = labels[i].parent + 1;
+//            edge.end = i + 1;
+//            edge.weight = findWeight(adj[labels[i].parent], i);
+//
+//            result.push_back(edge);
+//        }
+//    }
+//
+//    return result;
+//}
+
+vector<WeightedEdge> Dijkstra(const vector<vector<int> > &adj, int v) {
     size_t countVertices = adj.size();
-    vector<WeightedEdge> result;
+    vector<int> length(countVertices);
+    vector<int> parent(countVertices);
+    vector<bool> visited(countVertices, false);
 
-    if (countVertices > 0) {
-        vector<Label> labels(countVertices);
-        vector<bool> visited(countVertices, false);
-        vector<vector<Label> > table(countVertices, vector<Label>(countVertices));
-        int u = v - 1;
+    --v;
+    visited[v] = true;
 
-        table[0][u].weight = 0;
-        visited[u] = true;
-        for (int i = 1; i < countVertices; i++) {
-            table[i] = table[i - 1];
+    for (int u = 0; u < countVertices; u++) {
+        length[u] = adj[v][u];
+        parent[u] = v;
+    }
+    length[v] = 0;
 
-            for (auto it = adj[u].begin(); it != adj[u].end(); it++) {
-                int x = it->end;
-                if (!visited[x] && (table[i - 1][u].weight + it->weight < table[i][x].weight)) {
-                    table[i][x].weight = table[i - 1][u].weight + it->weight;
-                    table[i][x].parent = u;
-                }
+    vector<WeightedEdge> path;
+
+    for (int step = 1; step < countVertices; step++) {
+        WeightedEdge edge = findEdgeHasSmallestWeight(length, parent, visited);
+
+        path.push_back(edge);
+        visited[edge.end] = true;
+
+        // update height for each vertex adjacency to v (edge.end).
+        for (int u = 0; u < countVertices; u++)
+            if (!visited[u] && adj[edge.end][u] != INFINITY_LENGTH && length[u] > adj[edge.end][u] + length[edge.end]) {
+                length[u] = adj[edge.end][u] + length[edge.end];
+                parent[u] = edge.end;
             }
-
-            int pos = findMin(table[i], visited);
-            if (pos == -1)
-                break;
-
-            labels[pos] = table[i][pos];
-            visited[pos] = true;
-            u = pos;
-        }
-
-        Label none = Label();
-        for (int i = 0; i < labels.size(); i++) {
-            if (i == v - 1 || labels[i] == none)
-                continue;
-
-            WeightedEdge edge;
-            edge.start = labels[i].parent + 1;
-            edge.end = i + 1;
-            edge.weight = findWeight(adj[labels[i].parent], i);
-
-            result.push_back(edge);
-        }
     }
 
-    return result;
+    for (WeightedEdge &edge : path) {
+        ++edge.start;
+        ++edge.end;
+    }
+
+    return path;
 }
 
 vector<WeightedEdge> FordBellman(const vector<list<WeightedEdge> > &adj, int v) {
@@ -109,7 +148,7 @@ vector<WeightedEdge> FordBellman(const vector<list<WeightedEdge> > &adj, int v) 
         for (int i = 1; i < countVertices; i++) {
             table.push_back(table[i - 1]);
 
-            int count = q.size();
+            int count = (int)q.size();
             while (count > 0) {
                 int u = q.front();
                 q.pop();
@@ -151,18 +190,25 @@ vector<WeightedEdge> FordBellman(const vector<list<WeightedEdge> > &adj, int v) 
 vector<WeightedEdge> shortestPath(const vector<WeightedEdge> &edges, int countVertices, bool directed, int v,
                                   Algorithms algorithmName) {
 
-    vector<list<WeightedEdge> > adj;
     vector<WeightedEdge> path;
 
-    if (directed == DIRECTED)
-        adj = DirectedGraph::adjacencyList(edges, countVertices);
-    else
-        adj = UndirectedGraph::adjacencyList(edges, countVertices);
+    if (algorithmName == DIJKSTRA) {
+        vector<vector<int>> adjWeightedMatrix;
+        if (directed == DIRECTED)
+            adjWeightedMatrix = DirectedGraph::adjacencyWeightedMatrix(edges, countVertices);
+        else
+            adjWeightedMatrix = UndirectedGraph::adjacencyWeightedMatrix(edges, countVertices);
 
-    if (algorithmName == DIJKSTRA)
-        path = Dijkstra(adj, v);
-    else if (algorithmName == FORD_BELLMAN)
+        path = Dijkstra(adjWeightedMatrix, v);
+    } else if (algorithmName == FORD_BELLMAN) {
+        vector<list<WeightedEdge> > adj;
+        if (directed == DIRECTED)
+            adj = DirectedGraph::adjacencyList(edges, countVertices);
+        else
+            adj = UndirectedGraph::adjacencyList(edges, countVertices);
+
         path = FordBellman(adj, v);
+    }
 
     return path;
 }

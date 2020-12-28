@@ -49,6 +49,20 @@ vector<list<WeightedEdge>> DirectedGraph::adjacencyList(const vector<WeightedEdg
     return adj;
 }
 
+// MARK: - Test
+vector<vector<int> > DirectedGraph::adjacencyWeightedMatrix(const vector<WeightedEdge> &edges, int countVertices) {
+    vector<vector<int> > adj;
+
+    if (countVertices > 0) {
+        adj.resize(countVertices, vector<int>(countVertices, INFINITY_LENGTH));
+
+        for (const WeightedEdge &edge : edges)
+            adj[edge.start - 1][edge.end - 1] = edge.weight;
+    }
+
+    return adj;
+}
+//
 
 vector<vector<bool> > UndirectedGraph::adjacencyMatrix(const vector<vector<int> > &edges, int countVertices) {
     vector<vector<bool> > adj;
@@ -98,3 +112,20 @@ vector<list<WeightedEdge>> UndirectedGraph::adjacencyList(const vector<WeightedE
 
     return adj;
 }
+
+// MARK: - Test
+vector<vector<int> > UndirectedGraph::adjacencyWeightedMatrix(const vector<WeightedEdge> &edges, int countVertices) {
+    vector<vector<int> > adj;
+
+    if (countVertices > 0) {
+        adj.resize(countVertices, vector<int>(countVertices, INFINITY_LENGTH));
+
+        for (const WeightedEdge &edge : edges) {
+            adj[edge.start - 1][edge.end - 1] = edge.weight;
+            adj[edge.end - 1][edge.start - 1] = edge.weight;
+        }
+    }
+
+    return adj;
+}
+//

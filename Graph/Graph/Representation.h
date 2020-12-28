@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <list>
+#include <string>
 
 using namespace std;
 
@@ -20,6 +21,14 @@ struct WeightedEdge {
     int end;
     int weight;
 };
+
+// MARK: - Test
+#define INFINITY_LENGTH INT_MAX
+struct Vertex {
+    string name;
+    int id;
+};
+//
 
 #define DIRECTED    true
 #define UNDIRECTED  false
@@ -32,6 +41,7 @@ public:
     static vector<vector<bool> > adjacencyMatrix(const vector<vector<int> > &edges, int countVertices);
     static vector<list<int> > adjacencyList(const vector<vector<int> > &edges, int countVertices);
     static vector<list<WeightedEdge>> adjacencyList(const vector<WeightedEdge> &edges, int countVertices);
+    static vector<vector<int> > adjacencyWeightedMatrix(const vector<WeightedEdge> &edges, int countVertices);
 };
 
 class UndirectedGraph {
@@ -42,6 +52,7 @@ public:
     static vector<vector<bool> > adjacencyMatrix(const vector<vector<int> > &edges, int countVertices);
     static vector<list<int> > adjacencyList(const vector<vector<int> > &edges, int countVertices);
     static vector<list<WeightedEdge>> adjacencyList(const vector<WeightedEdge> &edges, int countVertices);
+    static vector<vector<int> > adjacencyWeightedMatrix(const vector<WeightedEdge> &edges, int countVertices);
 };
 
 #endif
